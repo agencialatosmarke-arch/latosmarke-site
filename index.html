@@ -249,6 +249,18 @@ body.locked{overflow:hidden}
 @media (max-width:560px){@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}}
 @media (prefers-reduced-motion:reduce){.chip{animation:none}}
 
+/* ---------- menu do topo em ícones (computador) ---------- */
+.nav{align-items:center;gap:4px;padding:5px}
+.nav a{position:relative;width:44px;height:44px;padding:0;border-radius:50%;display:grid;place-items:center;color:var(--mute);transition:background .2s,color .2s,transform .2s}
+.nav a:hover{background:var(--mist);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--mist);color:var(--ink)}
+.nav a.mid{width:50px;height:50px;background:var(--ink);color:var(--paper);margin-inline:4px}
+.nav a.mid:hover{transform:scale(1.06);background:var(--ink);color:var(--paper)}
+.nav a.mid[aria-current="page"]{box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink)}
+.nav a::after{content:attr(data-label);position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,-4px);white-space:nowrap;font-size:11px;font-weight:400;
+  background:var(--ink);color:var(--paper);padding:5px 10px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .25s}
+.nav a:hover::after,.nav a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+
 /* ---------- abas ---------- */
 .view{animation:in .5s ease both}
 @keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -480,13 +492,7 @@ footer nav a:hover{color:var(--ink)}
 <header class="top">
   <div class="wrap">
     <a href="#inicio" class="logo" aria-label="LatosMarke, início">Latos<b>Marke</b></a>
-    <nav class="nav" aria-label="Principal">
-      <a href="#inicio" data-r="inicio">Início</a>
-      <a href="#servicos" data-r="servicos">Serviços</a>
-      <a href="#processo" data-r="processo">Como trabalhamos</a>
-      <a href="#equipe" data-r="equipe">Equipe</a>
-      <a href="#contato" data-r="contato">Contato</a>
-    </nav>
+    <nav class="nav" aria-label="Principal"><a href="#inicio" data-r="inicio" aria-label="Início" data-label="Início"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7V20a.5.5 0 0 1-.5.5h-5v-6h-6v6H4a.5.5 0 0 1-.5-.5z"/></svg></a><a href="#servicos" data-r="servicos" aria-label="Serviços" data-label="Serviços"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></a><a href="#contato" data-r="contato" aria-label="Orçamento" data-label="Orçamento" class="mid"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.4 7.5L3.5 20.5l1-4.4A8.5 8.5 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></a><a href="#processo" data-r="processo" aria-label="Processo" data-label="Processo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3.5 3.5 0 0 1 0 7H9a3.5 3.5 0 0 0 0 7h6.5"/></svg></a><a href="#equipe" data-r="equipe" aria-label="Equipe" data-label="Equipe"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20.5a6.5 6.5 0 0 1 13 0"/><path d="M15.5 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 6.3"/></svg></a></nav>
     <a class="btn solid wa" href="#" target="_blank" rel="noopener">Fale conosco <span class="arr">→</span></a>
   </div>
 </header>
