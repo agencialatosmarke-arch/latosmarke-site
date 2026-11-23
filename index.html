@@ -87,8 +87,9 @@ p{margin:0}
 @media (max-width:820px){
   main .areas{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
   main .areas::-webkit-scrollbar{display:none}
-  .area{flex:0 0 88%;scroll-snap-align:start;min-width:0}
+  main .area{flex:0 0 88%;scroll-snap-align:start;min-width:0;padding:22px}
   .area-dots{display:flex}
+  main .area li b{font-size:13.5px}
 }
 
 /* ---------- abas ---------- */
@@ -194,6 +195,7 @@ p{margin:0}
 .area li{padding:13px 0;border-top:1px solid var(--line);display:grid;gap:2px}
 .area.dark li{border-color:#2a2a2d}
 .area li b{font-weight:600;font-size:14px;letter-spacing:-.01em}
+.area li b,.area li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .area li span{font-size:13px;color:var(--graphite)}
 .area.dark li span{color:#a6a6ac}
 .who{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--mist);border-radius:var(--r-xl);padding:26px 28px;margin-block:16px 40px}
@@ -416,7 +418,7 @@ footer nav a:hover{color:var(--ink)}
         </div>
         <div class="svc-vis">
           <canvas data-art="plates" data-seed="34" aria-hidden="true"></canvas>
-          <div class="float"><h4>Entregas</h4><ul><li>Sites e landing pages</li><li>Sistemas sob medida</li><li>Automações</li><li>UI/UX e dados</li></ul></div>
+          <div class="float"><h4>Entregas</h4><ul><li>Sites e landing pages</li><li>Sistemas sob medida</li><li>Automações</li><li>UI/UX design</li></ul></div>
           <span class="num-badge">03 / 03</span>
         </div>
       </article>
@@ -443,31 +445,31 @@ footer nav a:hover{color:var(--ink)}
       <div class="area">
         <div class="area-top"><h2>Marca</h2><span class="count">5 serviços</span></div>
         <ul>
-          <li><b>Diagnóstico de posicionamento</b><span>Análise da marca, concorrência e oportunidades.</span></li>
-          <li><b>Branding &amp; identidade visual</b><span>Logo, cores, tipografia e manual de marca.</span></li>
-          <li><b>Rebranding estratégico</b><span>Nova imagem para aumentar o valor percebido.</span></li>
-          <li><b>Design gráfico</b><span>Peças para redes, impressos e apresentações.</span></li>
-          <li><b>Consultoria estratégica</b><span>Direção para empresas com equipe interna.</span></li>
-        </ul>
-      </div>
-      <div class="area dark">
-        <div class="area-top"><h2>Presença digital</h2><span class="count">4 serviços</span></div>
-        <ul>
-          <li><b>Gestão de redes sociais</b><span>Estratégia, planejamento e publicação.</span></li>
-          <li><b>Gestão de anúncios</b><span>Campanhas, público certo e relatórios.</span></li>
-          <li><b>Edição de vídeos</b><span>Vídeos institucionais, reels e motion.</span></li>
-          <li><b>Produção com IA</b><span>Imagens, vídeos e apresentações premium.</span></li>
+          <li><b>Diagnóstico de posicionamento</b><span>Marca, mercado e oportunidades.</span></li>
+          <li><b>Branding &amp; identidade visual</b><span>Logo, cores, fontes e manual.</span></li>
+          <li><b>Rebranding estratégico</b><span>Nova imagem, mais valor.</span></li>
+          <li><b>Design gráfico</b><span>Peças para redes e impressos.</span></li>
+          <li><b>Consultoria estratégica</b><span>Direção para sua equipe interna.</span></li>
         </ul>
       </div>
       <div class="area">
-        <div class="area-top"><h2>Tecnologia</h2><span class="count">6 serviços</span></div>
+        <div class="area-top"><h2>Presença digital</h2><span class="count">5 serviços</span></div>
         <ul>
-          <li><b>Sites institucionais</b><span>Rápidos, bonitos e fáceis de atualizar.</span></li>
+          <li><b>Gestão de redes sociais</b><span>Estratégia, roteiro e postagem.</span></li>
+          <li><b>Gestão de anúncios</b><span>Campanhas com público certo.</span></li>
+          <li><b>Edição de vídeos</b><span>Institucionais, reels e motion.</span></li>
+          <li><b>Produção com IA</b><span>Imagens, vídeos e apresentações.</span></li>
+          <li><b>Análise de dados</b><span>Números claros para decidir.</span></li>
+        </ul>
+      </div>
+      <div class="area">
+        <div class="area-top"><h2>Tecnologia</h2><span class="count">5 serviços</span></div>
+        <ul>
+          <li><b>Sites institucionais</b><span>Rápidos e fáceis de atualizar.</span></li>
           <li><b>Landing pages</b><span>Páginas feitas para converter.</span></li>
-          <li><b>Sites e sistemas com banco de dados</b><span>Cadastros, painéis e áreas de cliente.</span></li>
-          <li><b>Automações</b><span>Menos trabalho manual, mais tempo livre.</span></li>
-          <li><b>UI/UX design</b><span>Telas claras e agradáveis de usar.</span></li>
-          <li><b>Análise de dados</b><span>Números organizados para decidir melhor.</span></li>
+          <li><b>Sistemas com banco de dados</b><span>Painéis e áreas de cliente.</span></li>
+          <li><b>Automações</b><span>Menos trabalho manual.</span></li>
+          <li><b>UI/UX design</b><span>Telas claras e fáceis de usar.</span></li>
         </ul>
       </div>
     </div>
