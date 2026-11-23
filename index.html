@@ -168,7 +168,7 @@ body.tray-on .area-dots{opacity:.3}
 .profile.open{visibility:visible;transition:none}
 .pf-backdrop{position:absolute;inset:0;background:rgba(10,10,10,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .35s}
 .profile.open .pf-backdrop{opacity:1}
-.pf-panel{position:relative;width:min(960px,100%);height:min(680px,calc(100dvh - 48px));display:grid;grid-template-columns:auto minmax(0,1fr);background:var(--paper);border-radius:var(--r-xl);overflow:hidden;
+.pf-panel{position:relative;width:min(960px,100%);height:min(680px,calc(100dvh - 48px));display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:minmax(0,1fr);background:var(--paper);border-radius:var(--r-xl);overflow:hidden;
   box-shadow:0 40px 80px -30px rgba(0,0,0,.5);opacity:0;transform:translateY(28px) scale(.97);transition:opacity .3s ease,transform .45s cubic-bezier(.2,1,.3,1)}
 .profile.open .pf-panel{opacity:1;transform:none}
 .pf-x{position:absolute;top:16px;right:16px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,transform .3s}
@@ -176,7 +176,7 @@ body.tray-on .area-dots{opacity:.3}
 .pf-photo{position:relative;height:100%;aspect-ratio:480/658;max-width:46vw;background:var(--mist)}
 .pf-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.05)}
 .pf-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),transparent 45%)}
-.pf-body{padding:36px 36px 32px;overflow:auto;display:grid;align-content:start;gap:6px}
+.pf-body{padding:36px 36px 32px;overflow-y:auto;min-height:0;height:100%;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;display:grid;align-content:start;gap:6px}
 .pf-eye{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 .pf-body h2{font-size:clamp(30px,3.4vw,42px);font-weight:200;line-height:1.05;letter-spacing:-.04em}
 .pf-body h2 b{font-weight:800}
@@ -195,7 +195,7 @@ body.tray-on .area-dots{opacity:.3}
 body.locked{overflow:hidden}
 @media (max-width:820px){
   .profile{padding:0;place-items:end stretch}
-  .pf-panel{width:100%;height:auto;max-height:92dvh;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);border-radius:28px 28px 0 0;transform:translateY(100%);opacity:1;transition:transform .45s cubic-bezier(.2,1,.3,1)}
+  .pf-panel{width:100%;height:92dvh;max-height:92dvh;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);border-radius:28px 28px 0 0;transform:translateY(100%);opacity:1;transition:transform .45s cubic-bezier(.2,1,.3,1)}
   .pf-photo{height:240px;min-height:0;aspect-ratio:auto;max-width:none}
   .pf-photo .sig{width:150px}
   .pf-body{padding:24px 20px calc(28px + env(safe-area-inset-bottom,0px))}
