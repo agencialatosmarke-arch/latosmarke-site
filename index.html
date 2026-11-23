@@ -198,8 +198,21 @@ p{margin:0}
 .area li b,.area li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .area li span{font-size:13px;color:var(--graphite)}
 .area.dark li span{color:#a6a6ac}
-.who{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--mist);border-radius:var(--r-xl);padding:26px 28px;margin-block:16px 40px}
-.who h3{font-size:18px;font-weight:400}
+.who{background:var(--ink);color:var(--paper);border-radius:var(--r-xl);margin-block:24px 40px;overflow:hidden;display:grid;gap:28px;padding-block:32px}
+.who-top,.who-foot{padding-inline:clamp(22px,4vw,40px)}
+.who-eye{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:12px}
+.who h3{font-size:clamp(24px,3vw,36px);font-weight:200;line-height:1.12;max-width:22ch}
+.who h3 b{font-weight:800}
+.who-run{display:flex;overflow:hidden;border-block:1px solid #232326;padding-block:14px}
+.who-track{display:flex;flex-shrink:0;align-items:center;gap:28px;padding-right:28px;white-space:nowrap;animation:run 26s linear infinite;
+  font-size:clamp(30px,5vw,56px);font-weight:800;letter-spacing:-.035em;line-height:1.1}
+.who-track em{font-style:normal;color:#4a4a4f}
+.who-track i{font-style:normal;font-size:.4em;color:#4a4a4f;font-weight:300}
+.who:hover .who-track{animation-play-state:paused}
+.who-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;color:#a6a6ac}
+.who-foot .btn{border-color:var(--paper);color:var(--paper)}
+.who-foot .btn:hover{background:var(--paper);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.who-track{animation:none}}
 
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .step{background:var(--mist);border-radius:var(--r-xl);padding:26px;display:flex;flex-direction:column;gap:40px;min-height:230px}
@@ -475,8 +488,18 @@ footer nav a:hover{color:var(--ink)}
     </div>
     <div class="area-dots" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="who">
-      <h3>Para empresas que querem crescer com profissionalismo</h3>
-      <div class="tags"><span class="tag">Arquitetura</span><span class="tag">Saúde e bem-estar</span><span class="tag">Estética</span><span class="tag">Alimentação</span><span class="tag">Jurídico</span></div>
+      <div class="who-top">
+        <p class="who-eye">Para quem</p>
+        <h3>Feito para empresas que querem <b>crescer com profissionalismo.</b></h3>
+      </div>
+      <div class="who-run" aria-label="Arquitetura, Saúde e bem-estar, Estética, Alimentação, Jurídico">
+        <div class="who-track" aria-hidden="true">Arquitetura <i>✳</i> <em>Saúde e bem-estar</em> <i>✳</i> Estética <i>✳</i> <em>Alimentação</em> <i>✳</i> Jurídico <i>✳</i></div>
+        <div class="who-track" aria-hidden="true">Arquitetura <i>✳</i> <em>Saúde e bem-estar</em> <i>✳</i> Estética <i>✳</i> <em>Alimentação</em> <i>✳</i> Jurídico <i>✳</i></div>
+      </div>
+      <div class="who-foot">
+        <span>Seu segmento não está na lista? A gente atende também.</span>
+        <a class="btn wa" href="#" target="_blank" rel="noopener">Falar com a gente <span class="arr">→</span></a>
+      </div>
     </div>
   </div>
 </section>
