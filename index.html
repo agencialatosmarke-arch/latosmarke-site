@@ -80,6 +80,17 @@ p{margin:0}
 @media (max-width:1000px){.team{grid-template-columns:1fr 1fr}.person{grid-column:1 / -1;min-height:0}}
 @media (max-width:560px){.team{grid-template-columns:1fr}.role{min-height:0}}
 
+/* ---------- carrossel de serviços (celular) ---------- */
+.area-dots{display:none;justify-content:center;gap:6px;margin-top:14px}
+.area-dots i{width:6px;height:6px;border-radius:999px;background:var(--line);transition:width .3s,background .3s}
+.area-dots i.on{width:22px;background:var(--ink)}
+@media (max-width:820px){
+  main .areas{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  main .areas::-webkit-scrollbar{display:none}
+  .area{flex:0 0 88%;scroll-snap-align:start;min-width:0}
+  .area-dots{display:flex}
+}
+
 /* ---------- abas ---------- */
 .view{animation:in .5s ease both}
 @keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -460,6 +471,7 @@ footer nav a:hover{color:var(--ink)}
         </ul>
       </div>
     </div>
+    <div class="area-dots" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="who">
       <h3>Para empresas que querem crescer com profissionalismo</h3>
       <div class="tags"><span class="tag">Arquitetura</span><span class="tag">Saúde e bem-estar</span><span class="tag">Estética</span><span class="tag">Alimentação</span><span class="tag">Jurídico</span></div>
@@ -651,6 +663,24 @@ footer nav a:hover{color:var(--ink)}
     send.href=wa(t);
   }
   f.addEventListener("input",upd);f.addEventListener("submit",ev=>ev.preventDefault());upd();
+
+  /* ---------- carrossel: passa a cada 5 s; tocou, para; tocou fora, volta ---------- */
+  const car=document.querySelector(".areas"),dots=[...document.querySelectorAll(".area-dots i")];
+  const mq=matchMedia("(max-width:820px)");let held=false;
+  const cards=()=>[...car.children];
+  const stepW=()=>{const c=cards();return c.length>1?c[1].offsetLeft-c[0].offsetLeft:car.clientWidth};
+  const cur=()=>Math.round(car.scrollLeft/stepW());
+  const mark=()=>{const i=Math.min(cur(),dots.length-1);dots.forEach((d,k)=>d.classList.toggle("on",k===i))};
+  car.addEventListener("scroll",mark,{passive:true});
+  car.addEventListener("pointerdown",()=>{held=true},{passive:true});
+  car.addEventListener("touchstart",()=>{held=true},{passive:true});
+  document.addEventListener("pointerdown",e=>{if(!car.contains(e.target))held=false});
+  setInterval(()=>{
+    if(held||!mq.matches||!car.offsetParent||document.hidden)return;
+    const n=cards().length,next=(cur()+1)%n;
+    car.scrollTo({left:next*stepW(),behavior:"smooth"});
+  },5000);
+  mark();
 
   route();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawAll);
