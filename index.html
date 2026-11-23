@@ -239,12 +239,14 @@ body.locked{overflow:hidden}
 @keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ---------- hero ---------- */
-.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:20px;padding-block:12px 24px}
+.hero{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:20px;padding-block:12px 24px}
 .hero-txt{display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:48px 8px 8px 0;min-width:0}
 .eyebrow{font-size:12px;font-weight:400;color:var(--graphite);letter-spacing:.04em}
-.hero h1{font-size:clamp(44px,6.6vw,92px);font-weight:200;line-height:.98;letter-spacing:-.045em;margin-top:18px}
+.hero h1{font-size:clamp(44px,6vw,84px);font-weight:200;line-height:.98;letter-spacing:-.045em;margin-top:18px}
 .hero h1 strong{font-weight:800}
 .dot{color:var(--red)}
+.h1-row{display:flex;align-items:flex-end;gap:14px 24px;flex-wrap:wrap}
+.hero-cta{margin-bottom:clamp(6px,.9vw,12px);padding:10px 18px}
 .hero .lead{max-width:40ch;color:var(--graphite);margin-top:22px;font-size:15px}
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .hero-foot{display:grid;gap:14px;min-width:0}
@@ -483,10 +485,9 @@ footer nav a:hover{color:var(--ink)}
       <div class="hero-txt">
         <div>
           <p class="eyebrow">Estratégia · Design · Tecnologia</p>
-          <h1>Marca forte<br><strong>vende mais</strong><span class="dot">.</span></h1>
-          <div class="cta-row">
-            <a class="btn solid" href="#servicos">Ver serviços <span class="arr">→</span></a>
-            <a class="btn wa" href="#" target="_blank" rel="noopener">Pedir orçamento</a>
+          <div class="h1-row">
+            <h1>Marca forte<br><strong>vende mais</strong><span class="dot">.</span></h1>
+            <a class="btn solid hero-cta" href="#servicos">Ver serviços <span class="arr">→</span></a>
           </div>
         </div>
         <div class="hero-foot">
