@@ -234,6 +234,21 @@ body.locked{overflow:hidden}
 @media (max-width:820px){.tools{grid-template-columns:repeat(4,minmax(0,1fr))}.tool{font-size:10px;padding:12px 4px 10px;gap:6px}.tool svg,.ti{width:22px;height:22px}}
 @media (max-width:360px){.tools{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
+/* ---------- chips da home: flutuando + balão ---------- */
+.chip{cursor:pointer;animation:chipfloat var(--t,5s) ease-in-out var(--dl,0s) infinite;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,border-color .2s,box-shadow .2s}
+@keyframes chipfloat{0%,100%{transform:rotate(var(--r,0deg)) translateY(0)}50%{transform:rotate(calc(var(--r,0deg) * .6)) translateY(-7px)}}
+.chip:hover,.chip.on{animation-play-state:paused;box-shadow:0 8px 20px -10px rgba(0,0,0,.35)}
+.chip:not(.k):hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.k.on{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+.chip:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+#ctip{position:absolute;z-index:40;width:min(250px,calc(100vw - 32px))}
+.tip-link{margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);background:var(--paper);border-radius:999px;padding:7px 12px;justify-self:start}
+.tip-link .arr{transition:transform .2s}
+.tip-link:hover .arr{transform:translateX(3px)}
+@media (max-width:560px){@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}}
+@media (prefers-reduced-motion:reduce){.chip{animation:none}}
+
 /* ---------- abas ---------- */
 .view{animation:in .5s ease both}
 @keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -293,7 +308,6 @@ body.locked{overflow:hidden}
 .chip-field{position:relative;width:100%;flex:1;min-height:150px;margin-top:10px}
 .chip{position:absolute;font-size:12px;font-weight:400;padding:7px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--line);white-space:nowrap;transform:rotate(var(--r));transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
 .chip.k{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.chip:hover{transform:rotate(0) scale(1.06)}
 .tile canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
 /* ---------- faixa ---------- */
@@ -733,6 +747,7 @@ footer nav a:hover{color:var(--ink)}
     </div>
   </div>
 </div>
+<div class="tip" id="ctip" role="region" aria-label="Sobre o serviço" aria-hidden="true"><p class="tip-cat">Serviço</p><h4 id="ct-name"></h4><p class="tip-use" id="ct-use"></p><a class="tip-link" id="ct-link" href="#" target="_blank" rel="noopener">Quero saber mais <span class="arr">→</span></a></div>
 <nav class="tabbar" aria-label="Menu"><div class="tabbar-in"><a href="#inicio" data-r="inicio" aria-label="Início" title="Início"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7V20a.5.5 0 0 1-.5.5h-5v-6h-6v6H4a.5.5 0 0 1-.5-.5z"/></svg></a><a href="#servicos" data-r="servicos" aria-label="Serviços" title="Serviços"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></a><a href="#contato" data-r="contato" aria-label="Orçamento" title="Orçamento" class="mid"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.4 7.5L3.5 20.5l1-4.4A8.5 8.5 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></a><a href="#processo" data-r="processo" aria-label="Processo" title="Processo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3.5 3.5 0 0 1 0 7H9a3.5 3.5 0 0 0 0 7h6.5"/></svg></a><a href="#equipe" data-r="equipe" aria-label="Equipe" title="Equipe"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20.5a6.5 6.5 0 0 1 13 0"/><path d="M15.5 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 6.3"/></svg></a></div></nav>
 
 <footer>
@@ -951,6 +966,41 @@ footer nav a:hover{color:var(--ink)}
   const fitCta=()=>{if(heroStrong&&heroCta&&heroStrong.offsetParent)heroCta.style.setProperty("--cta-w",heroStrong.getBoundingClientRect().width+"px")};
   addEventListener("resize",fitCta);addEventListener("hashchange",()=>setTimeout(fitCta,60));
   if(document.fonts){document.fonts.ready.then(fitCta);document.fonts.addEventListener("loadingdone",fitCta)}
+
+  /* ---------- chips da home: balão ---------- */
+  const DESC={"Branding": "Identidade visual completa: logo, cores, fontes e manual para a marca ser reconhecida.", "Sites": "Sites institucionais rápidos, responsivos e fáceis de atualizar.", "Landing pages": "Páginas de venda feitas para transformar visitas em contatos.", "UI/UX": "Telas pensadas para quem usa: claras, bonitas e fáceis de navegar.", "Sistemas": "Sistemas sob medida com banco de dados, painéis e áreas de cliente.", "Automação": "Processos automáticos que economizam tempo e reduzem erros.", "Edição de vídeo": "Vídeos institucionais, reels e motion com acabamento profissional.", "Tráfego": "Anúncios no Google e na Meta com público certo e acompanhamento de resultados.", "Análise de dados": "Números organizados em relatórios claros para decidir melhor.", "Design gráfico": "Peças para redes sociais, impressos e apresentações.", "IA": "Imagens, vídeos e apresentações produzidos com inteligência artificial."};
+  const ctip=document.getElementById("ctip");let cSel=null;
+  function placeC(){
+    if(!cSel)return;const r=cSel.getBoundingClientRect(),w=ctip.offsetWidth,h=ctip.offsetHeight;
+    const down=r.top-h-14<90;ctip.classList.toggle("down",down);
+    const left=Math.min(Math.max(r.left+scrollX+r.width/2-w/2,16+scrollX),scrollX+innerWidth-w-16);
+    ctip.style.left=left+"px";ctip.style.top=(down?r.bottom+scrollY+10:r.top+scrollY-h-10)+"px";
+    const ax=Math.min(Math.max(r.left+scrollX+r.width/2-6-left,14),w-26);
+    ctip.style.setProperty("--ax",ax+"px");ctip.style.transformOrigin=(ax+6)+"px "+(down?"0":"100%");
+  }
+  function openC(ch){
+    if(cSel===ch){closeC();return}
+    if(cSel)cSel.classList.remove("on");cSel=ch;ch.classList.add("on");
+    const n=ch.textContent.trim();
+    document.getElementById("ct-name").textContent=n;
+    document.getElementById("ct-use").textContent=DESC[n]||"";
+    document.getElementById("ct-link").href=wa("Olá! Vim pelo site da LatosMarke e quero saber mais sobre "+n+".");
+    const was=ctip.classList.contains("open");
+    if(was){ctip.classList.remove("open");setTimeout(()=>{placeC();ctip.classList.add("open")},120)}
+    else{placeC();requestAnimationFrame(()=>ctip.classList.add("open"))}
+    ctip.setAttribute("aria-hidden","false");
+  }
+  function closeC(){ctip.classList.remove("open");ctip.setAttribute("aria-hidden","true");if(cSel){cSel.classList.remove("on");cSel=null}}
+  document.querySelectorAll(".chip-field .chip").forEach((ch,i)=>{
+    ch.tabIndex=0;ch.setAttribute("role","button");
+    ch.style.setProperty("--t",(4.2+(i*0.37)%2.2).toFixed(2)+"s");ch.style.setProperty("--dl",(-(i*0.53)%3).toFixed(2)+"s");
+    ch.addEventListener("click",()=>openC(ch));
+    ch.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openC(ch)}});
+  });
+  document.addEventListener("pointerdown",e=>{if(cSel&&!e.target.closest(".chip")&&!ctip.contains(e.target))closeC()});
+  addEventListener("keydown",e=>{if(e.key==="Escape"&&cSel)closeC()});
+  addEventListener("hashchange",closeC);
+  addEventListener("resize",()=>{if(cSel)placeC()});
 
   route();
   syncTeam();
