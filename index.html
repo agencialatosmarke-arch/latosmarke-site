@@ -309,6 +309,8 @@ main .final{align-items:center}
 .qs-field::-webkit-scrollbar{display:none}
 .qs-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .qs-chips:empty{display:none}
+@media (max-width:820px){body.qs-on .tabbar{opacity:0;pointer-events:none;transform:translateY(20px)}}
+.tabbar{transition:opacity .25s,transform .25s}
 .qs-chips button{font:inherit;font-size:12px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #333;background:#1b1b1e;color:var(--paper);cursor:pointer;animation:pop .3s cubic-bezier(.3,1.4,.5,1)}
 .qs-chips button span{opacity:.6}
 .qs-chips .qs-more{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:600}
@@ -1181,6 +1183,7 @@ footer nav a:hover{color:var(--ink)}
   /* ---------- busca de serviços na chamada final ---------- */
   const QS=[["Diagnóstico de posicionamento", "Marca"], ["Branding & identidade visual", "Marca"], ["Rebranding estratégico", "Marca"], ["Design gráfico", "Marca"], ["Consultoria estratégica", "Marca"], ["Gestão de redes sociais", "Presença digital"], ["Gestão de anúncios", "Presença digital"], ["Edição de vídeos", "Presença digital"], ["Criação de conteúdo", "Presença digital"], ["Análise de dados", "Presença digital"], ["Sites institucionais", "Tecnologia"], ["Landing pages", "Tecnologia"], ["Sistemas com banco de dados", "Tecnologia"], ["Automações", "Tecnologia"], ["UI/UX design", "Tecnologia"], ["Google Meu Negócio", "Tecnologia"]];
   const qs=document.getElementById("qs"),qIn=document.getElementById("qs-in"),qList=document.getElementById("qs-list"),qChips=document.getElementById("qs-chips"),qGo=document.getElementById("qs-go");
+  const qTouch=matchMedia("(pointer:coarse)").matches;if(qTouch){qIn.readOnly=true;qIn.setAttribute("inputmode","none");qIn.style.cursor="pointer";qIn.style.caretColor="transparent"}
   const qSel=[];let qAct=0,qShown=[],qAll=false;const QMAX=4;
   const norm=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
   function qMsg(){const extra=qIn.value.trim();let items=[...qSel];if(extra&&!items.length)items=[extra];
@@ -1194,12 +1197,12 @@ footer nav a:hover{color:var(--ink)}
     qChips.innerHTML="";const vis=(qAll||qSel.length<=QMAX)?qSel:qSel.slice(0,QMAX);vis.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qClose();qIn.blur()});qChips.appendChild(b)});
     if(qSel.length>QMAX){const m=document.createElement("button");m.type="button";m.className="qs-more";m.textContent=qAll?"Ver menos":"Ver mais "+(qSel.length-QMAX);
       m.setAttribute("aria-expanded",qAll);m.addEventListener("pointerdown",e=>e.stopPropagation());m.addEventListener("click",e=>{e.stopPropagation();qAll=!qAll;qRender()});qChips.appendChild(m)}
-    qIn.placeholder=qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?";
+    qIn.placeholder=qTouch?(qSel.length?"Toque para adicionar outro serviço":"Toque para escolher o serviço"):(qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?");
     qGo.href=wa(qMsg());
   }
   function qToggle(n){qAll=false;const i=qSel.indexOf(n);if(i>-1)qSel.splice(i,1);else qSel.push(n);qIn.value="";qAct=0;qRender();qIn.focus({preventScroll:true})}
-  function qOpen(){qs.classList.add("open");qIn.setAttribute("aria-expanded","true");qRender()}
-  function qClose(){qs.classList.remove("open");qIn.setAttribute("aria-expanded","false")}
+  function qOpen(){qs.classList.add("open");document.body.classList.add("qs-on");qIn.setAttribute("aria-expanded","true");qRender()}
+  function qClose(){qs.classList.remove("open");document.body.classList.remove("qs-on");qIn.setAttribute("aria-expanded","false")}
   qIn.addEventListener("focus",qOpen);
   qIn.addEventListener("input",()=>{qAct=0;qOpen()});
   qIn.addEventListener("keydown",e=>{
