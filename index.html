@@ -391,10 +391,11 @@ body.locked{overflow:hidden}
 .final .btn.solid:hover{background:var(--mist)}
 
 /* ---------- páginas internas ---------- */
-.page-head{padding-block:56px 36px;display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+.page-head{padding-block:56px 36px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
 .page-head h1{font-size:clamp(40px,6vw,80px);font-weight:200;line-height:1;letter-spacing:-.045em}
 .page-head h1 b{font-weight:800}
-.page-head p{color:var(--graphite);max-width:48ch;font-size:clamp(15px,1.3vw,17px);line-height:1.55;padding-left:2px}
+.page-head p{color:var(--graphite);max-width:40ch;font-size:clamp(15px,1.3vw,17px);line-height:1.55;padding-left:clamp(18px,2vw,28px);border-left:1px solid var(--line)}
+@media (max-width:820px){.page-head{grid-template-columns:1fr;gap:16px}.page-head p{padding-left:0;border-left:0}}
 .areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .area{border:1px solid var(--line);border-radius:var(--r-xl);padding:26px;display:flex;flex-direction:column;gap:18px;transition:border-color .2s}
 .area:hover{border-color:var(--ink)}
@@ -661,7 +662,7 @@ footer nav a:hover{color:var(--ink)}
 <section class="view" data-view="processo" hidden>
   <div class="wrap">
     <div class="page-head">
-      <h1>Estratégia antes <b>da execução</b><span class="dot">.</span></h1>
+      <h1>Estratégia antes<br><b>da execução</b><span class="dot">.</span></h1>
       <p>Um processo simples e organizado, do primeiro contato ao acompanhamento dos resultados.</p>
     </div>
     <div class="steps">
@@ -697,7 +698,7 @@ footer nav a:hover{color:var(--ink)}
 <section class="view" data-view="equipe" hidden>
   <div class="wrap">
     <div class="page-head">
-      <h1>Quem faz <b>acontecer</b><span class="dot">.</span></h1>
+      <h1>Quem faz<br><b>acontecer</b><span class="dot">.</span></h1>
       <p>Um time enxuto, com experiência de mercado e atendimento direto de quem executa.</p>
     </div>
     <div class="team-people">
@@ -724,7 +725,7 @@ footer nav a:hover{color:var(--ink)}
 <section class="view" data-view="contato" hidden>
   <div class="wrap">
     <div class="page-head">
-      <h1>Vamos <b>conversar</b><span class="dot">?</span></h1>
+      <h1>Vamos<br><b>conversar</b><span class="dot">?</span></h1>
       <p>Conte rapidamente o que você precisa. Respondemos pelo WhatsApp.</p>
     </div>
     <div class="contact">
