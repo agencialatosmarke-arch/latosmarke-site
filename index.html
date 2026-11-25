@@ -1191,7 +1191,7 @@ footer nav a:hover{color:var(--ink)}
     const q=norm(qIn.value.trim());
     qShown=QS.filter(([n,a])=>!q||norm(n).includes(q)||norm(a).includes(q));
     qList.innerHTML=qShown.length?qShown.map(([n,a],i)=>`<li role="option" id="qs-o${i}" aria-selected="${qSel.includes(n)}" class="${i===qAct?"act":""}" data-n="${n}"><span>${n}</span><small>${a}</small></li>`).join(""):'<li class="qs-empty">Nenhum serviço com esse nome. Envie assim mesmo que a gente responde.</li>';
-    qChips.innerHTML="";const vis=(qAll||qSel.length<=QMAX)?qSel:qSel.slice(0,QMAX);vis.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qOpen()});qChips.appendChild(b)});
+    qChips.innerHTML="";const vis=(qAll||qSel.length<=QMAX)?qSel:qSel.slice(0,QMAX);vis.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qClose();qIn.blur()});qChips.appendChild(b)});
     if(qSel.length>QMAX){const m=document.createElement("button");m.type="button";m.className="qs-more";m.textContent=qAll?"Ver menos":"Ver mais "+(qSel.length-QMAX);
       m.setAttribute("aria-expanded",qAll);m.addEventListener("pointerdown",e=>e.stopPropagation());m.addEventListener("click",e=>{e.stopPropagation();qAll=!qAll;qRender()});qChips.appendChild(m)}
     qIn.placeholder=qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?";
@@ -1205,11 +1205,11 @@ footer nav a:hover{color:var(--ink)}
   qIn.addEventListener("keydown",e=>{
     if(e.key==="ArrowDown"){e.preventDefault();qAct=Math.min(qAct+1,qShown.length-1);qRender()}
     else if(e.key==="ArrowUp"){e.preventDefault();qAct=Math.max(qAct-1,0);qRender()}
-    else if(e.key==="Enter"){e.preventDefault();if(qShown[qAct])qToggle(qShown[qAct][0])}
+    else if(e.key==="Enter"){e.preventDefault();if(qShown[qAct]){qToggle(qShown[qAct][0]);qClose()}}
     else if(e.key==="Backspace"&&!qIn.value&&qSel.length){qSel.pop();qRender()}
     else if(e.key==="Escape"){qClose();qIn.blur()}
   });
-  qList.addEventListener("pointerdown",e=>{e.stopPropagation();const li=e.target.closest("li[data-n]");if(!li)return;e.preventDefault();qToggle(li.dataset.n)});
+  qList.addEventListener("pointerdown",e=>{e.stopPropagation();const li=e.target.closest("li[data-n]");if(!li)return;e.preventDefault();qToggle(li.dataset.n);qClose();qIn.blur()});
   qIn.addEventListener("click",qOpen);
   qs.querySelector(".qs-bar").addEventListener("click",e=>{if(!e.target.closest(".qs-list"))qIn.focus()});
   document.addEventListener("pointerdown",e=>{if(e.target.isConnected&&!qs.contains(e.target))qClose()});
