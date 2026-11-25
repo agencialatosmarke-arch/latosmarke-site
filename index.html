@@ -292,6 +292,43 @@ body.locked{overflow:hidden}
   #open-gabriel{order:2}
 }
 
+/* ---------- busca de serviços na chamada final ---------- */
+.final{align-items:center}
+.qs{position:relative;flex:1 1 480px;max-width:620px;min-width:0}
+.qs-bar{position:relative;display:flex;align-items:center;gap:10px;background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 6px 6px 18px;box-shadow:0 0 0 0 rgba(255,255,255,.0);transition:box-shadow .25s}
+.qs.open .qs-bar,.qs-bar:focus-within{box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.qs-ic{flex-shrink:0;color:var(--mute)}
+.qs-field{flex:1;min-width:0;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.qs-field::-webkit-scrollbar{display:none}
+.qs-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.qs-chips:empty{display:none}
+.qs-chips button{font:inherit;font-size:12px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #333;background:#1b1b1e;color:var(--paper);cursor:pointer;animation:pop .3s cubic-bezier(.3,1.4,.5,1)}
+.qs-chips button span{opacity:.6}
+#qs-in{flex:1;min-width:140px;border:0;outline:0;background:transparent;padding:10px 0;font:inherit;font-size:15px;color:var(--ink);border-radius:0}
+#qs-in::placeholder{color:var(--mute)}
+.qs-go{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);border-radius:999px;padding:12px 18px;font-size:14px;font-weight:400;white-space:nowrap;transition:transform .2s,background .2s}
+.qs-go:hover{background:var(--graphite)}
+.qs-go:active{transform:scale(.97)}
+.qs-go .arr{transition:transform .2s}
+.qs-go:hover .arr{transform:translateX(3px)}
+.qs-list{position:absolute;left:0;right:0;top:calc(100% + 10px);text-align:left;z-index:20;list-style:none;margin:0;padding:6px;background:var(--paper);color:var(--ink);border-radius:20px;
+  max-height:280px;overflow-y:auto;box-shadow:0 24px 50px -20px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .25s,visibility 0s linear .25s}
+.qs.open .qs-list{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .25s,visibility 0s}
+.qs-list li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14px;cursor:pointer}
+.qs-list li small{font-size:11px;color:var(--mute);white-space:nowrap}
+.qs-list li.act,.qs-list li:hover{background:var(--mist)}
+.qs-list li[aria-selected="true"]{font-weight:600}
+.qs-list li[aria-selected="true"] small::before{content:"✓  ";color:var(--ink)}
+.qs-list .qs-empty{cursor:default;color:var(--mute)}
+.qs-hint{margin-top:12px;font-size:12px;color:#9a9aa0;padding-left:4px}
+@media (max-width:560px){
+  .qs{flex-basis:100%}
+  .qs-bar{flex-wrap:wrap;border-radius:22px;padding:8px 8px 8px 16px;row-gap:8px}
+  .qs-field{flex:1 1 calc(100% - 40px)}
+  .qs-go{flex-basis:100%;justify-content:center;padding:13px 18px}
+  .qs-hint{padding-left:4px}
+}
+
 /* ---------- abas ---------- */
 .view{animation:in .5s ease both}
 @keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -600,9 +637,15 @@ footer nav a:hover{color:var(--ink)}
 
     <div class="final">
       <h2>Pronto para <b>vender mais</b>?</h2>
-      <div class="cta-row" style="margin:0">
-        <a class="btn solid wa" href="#" target="_blank" rel="noopener">Falar no WhatsApp <span class="arr">→</span></a>
-        <a class="btn" href="#contato">Enviar mensagem</a>
+      <div class="qs" id="qs">
+        <div class="qs-bar">
+          <svg class="qs-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <div class="qs-field"><input id="qs-in" type="text" placeholder="Qual serviço você precisa?" aria-label="Buscar serviço" role="combobox" aria-expanded="false" aria-controls="qs-list" aria-autocomplete="list" autocomplete="off"></div>
+          <a class="qs-go" id="qs-go" href="#" target="_blank" rel="noopener">Pedir orçamento <span class="arr">→</span></a>
+          <ul class="qs-list" id="qs-list" role="listbox" aria-multiselectable="true"></ul>
+        </div>
+        <div class="qs-chips" id="qs-chips"></div>
+        <p class="qs-hint">Escolha um ou mais serviços. A mensagem vai pronta para o WhatsApp.</p>
       </div>
     </div>
   </div>
@@ -1124,6 +1167,41 @@ footer nav a:hover{color:var(--ink)}
     addEventListener("hashchange",close);
   }
   makeProfile("profile-vinicius","open-vinicius");
+
+  /* ---------- busca de serviços na chamada final ---------- */
+  const QS=[["Diagnóstico de posicionamento", "Marca"], ["Branding & identidade visual", "Marca"], ["Rebranding estratégico", "Marca"], ["Design gráfico", "Marca"], ["Consultoria estratégica", "Marca"], ["Gestão de redes sociais", "Presença digital"], ["Gestão de anúncios", "Presença digital"], ["Edição de vídeos", "Presença digital"], ["Produção com IA", "Presença digital"], ["Análise de dados", "Presença digital"], ["Sites institucionais", "Tecnologia"], ["Landing pages", "Tecnologia"], ["Sistemas com banco de dados", "Tecnologia"], ["Automações", "Tecnologia"], ["UI/UX design", "Tecnologia"], ["Google Meu Negócio", "Tecnologia"]];
+  const qs=document.getElementById("qs"),qIn=document.getElementById("qs-in"),qList=document.getElementById("qs-list"),qChips=document.getElementById("qs-chips"),qGo=document.getElementById("qs-go");
+  const qSel=[];let qAct=0,qShown=[];
+  const norm=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+  function qMsg(){const extra=qIn.value.trim();let items=[...qSel];if(extra&&!items.length)items=[extra];
+    if(!items.length)return "Olá! Vim pelo site da LatosMarke e gostaria de um orçamento.";
+    if(items.length===1)return "Olá! Vim pelo site da LatosMarke e gostaria de um orçamento para "+items[0]+".";
+    return "Olá! Vim pelo site da LatosMarke e gostaria de um orçamento para:\n"+items.map(x=>"• "+x).join("\n");}
+  function qRender(){
+    const q=norm(qIn.value.trim());
+    qShown=QS.filter(([n,a])=>!q||norm(n).includes(q)||norm(a).includes(q));
+    qList.innerHTML=qShown.length?qShown.map(([n,a],i)=>`<li role="option" id="qs-o${i}" aria-selected="${qSel.includes(n)}" class="${i===qAct?"act":""}" data-n="${n}"><span>${n}</span><small>${a}</small></li>`).join(""):'<li class="qs-empty">Nenhum serviço com esse nome. Envie assim mesmo que a gente responde.</li>';
+    qChips.innerHTML="";qSel.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("click",e=>{e.stopPropagation();qToggle(n)});qChips.appendChild(b)});
+    qIn.placeholder=qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?";
+    qGo.href=wa(qMsg());
+  }
+  function qToggle(n){const i=qSel.indexOf(n);if(i>-1)qSel.splice(i,1);else qSel.push(n);qIn.value="";qAct=0;qRender();qIn.focus({preventScroll:true})}
+  function qOpen(){qs.classList.add("open");qIn.setAttribute("aria-expanded","true");qRender()}
+  function qClose(){qs.classList.remove("open");qIn.setAttribute("aria-expanded","false")}
+  qIn.addEventListener("focus",qOpen);
+  qIn.addEventListener("input",()=>{qAct=0;qOpen()});
+  qIn.addEventListener("keydown",e=>{
+    if(e.key==="ArrowDown"){e.preventDefault();qAct=Math.min(qAct+1,qShown.length-1);qRender()}
+    else if(e.key==="ArrowUp"){e.preventDefault();qAct=Math.max(qAct-1,0);qRender()}
+    else if(e.key==="Enter"){e.preventDefault();if(qShown[qAct])qToggle(qShown[qAct][0])}
+    else if(e.key==="Backspace"&&!qIn.value&&qSel.length){qSel.pop();qRender()}
+    else if(e.key==="Escape"){qClose();qIn.blur()}
+  });
+  qList.addEventListener("pointerdown",e=>{const li=e.target.closest("li[data-n]");if(!li)return;e.preventDefault();qToggle(li.dataset.n)});
+  qs.querySelector(".qs-bar").addEventListener("click",e=>{if(!e.target.closest(".qs-go"))qIn.focus()});
+  document.addEventListener("pointerdown",e=>{if(!qs.contains(e.target))qClose()});
+  qGo.addEventListener("click",()=>{qGo.href=wa(qMsg())});
+  qRender();
 
   route();
   syncTeam();
