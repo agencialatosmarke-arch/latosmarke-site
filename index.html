@@ -332,8 +332,9 @@ body.locked{overflow:hidden}
 .float h4{margin:0 0 4px;font-size:15px;font-weight:600;letter-spacing:-.02em}
 .float p{font-size:12px;color:var(--graphite);line-height:1.45}
 .avatars{display:flex;margin-bottom:10px}
-.avatars span{width:30px;height:30px;border-radius:50%;border:2px solid var(--paper);margin-left:-8px;display:grid;place-items:center;font-size:10px;font-weight:600;background:var(--ink);color:var(--paper)}
+.avatars span{overflow:hidden;width:34px;height:34px;border-radius:50%;border:2px solid var(--paper);margin-left:-8px;display:grid;place-items:center;font-size:10px;font-weight:600;background:var(--ink);color:var(--paper)}
 .avatars span:first-child{margin-left:0}
+.avatars img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);display:block}
 .avatars span:nth-child(2){background:var(--graphite)}
 .avatars span:nth-child(3){background:var(--mist);color:var(--ink)}
 
@@ -552,9 +553,9 @@ footer nav a:hover{color:var(--ink)}
       <div class="visual">
         <canvas data-art="plates" data-seed="1" aria-hidden="true"></canvas>
         <div class="float">
-          <div class="avatars" aria-hidden="true"><span>M</span><span>D</span><span>T</span></div>
-          <h4>Um só parceiro</h4>
-          <p>Marca, conteúdo e tecnologia trabalhando juntos pelo seu resultado.</p>
+          <div class="avatars" aria-hidden="true"><span><img src="assets/andre.webp" alt="" style="object-position:50% 30%"></span><span><img src="assets/gabriel.webp" alt="" style="object-position:50% 25%"></span><span><img src="assets/vinicius.webp" alt="" style="object-position:50% 25%"></span></div>
+          <h4>Atendimento direto com quem executa.</h4>
+          <p>Estratégia, tecnologia e vídeo no mesmo time.</p>
         </div>
       </div>
     </div>
