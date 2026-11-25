@@ -1190,7 +1190,7 @@ footer nav a:hover{color:var(--ink)}
     const q=norm(qIn.value.trim());
     qShown=QS.filter(([n,a])=>!q||norm(n).includes(q)||norm(a).includes(q));
     qList.innerHTML=qShown.length?qShown.map(([n,a],i)=>`<li role="option" id="qs-o${i}" aria-selected="${qSel.includes(n)}" class="${i===qAct?"act":""}" data-n="${n}"><span>${n}</span><small>${a}</small></li>`).join(""):'<li class="qs-empty">Nenhum serviço com esse nome. Envie assim mesmo que a gente responde.</li>';
-    qChips.innerHTML="";qSel.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("click",e=>{e.stopPropagation();qToggle(n)});qChips.appendChild(b)});
+    qChips.innerHTML="";qSel.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qOpen()});qChips.appendChild(b)});
     qIn.placeholder=qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?";
     qGo.href=wa(qMsg());
   }
@@ -1206,9 +1206,10 @@ footer nav a:hover{color:var(--ink)}
     else if(e.key==="Backspace"&&!qIn.value&&qSel.length){qSel.pop();qRender()}
     else if(e.key==="Escape"){qClose();qIn.blur()}
   });
-  qList.addEventListener("pointerdown",e=>{const li=e.target.closest("li[data-n]");if(!li)return;e.preventDefault();qToggle(li.dataset.n)});
+  qList.addEventListener("pointerdown",e=>{e.stopPropagation();const li=e.target.closest("li[data-n]");if(!li)return;e.preventDefault();qToggle(li.dataset.n)});
+  qIn.addEventListener("click",qOpen);
   qs.querySelector(".qs-bar").addEventListener("click",e=>{if(!e.target.closest(".qs-list"))qIn.focus()});
-  document.addEventListener("pointerdown",e=>{if(!qs.contains(e.target))qClose()});
+  document.addEventListener("pointerdown",e=>{if(e.target.isConnected&&!qs.contains(e.target))qClose()});
   qGo.addEventListener("click",()=>{qGo.href=wa(qMsg())});
   qRender();
 
