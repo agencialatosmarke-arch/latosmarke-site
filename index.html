@@ -311,6 +311,7 @@ main .final{align-items:center}
 .qs-chips:empty{display:none}
 .qs-chips button{font:inherit;font-size:12px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #333;background:#1b1b1e;color:var(--paper);cursor:pointer;animation:pop .3s cubic-bezier(.3,1.4,.5,1)}
 .qs-chips button span{opacity:.6}
+.qs-chips .qs-more{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:600}
 #qs-in{flex:1;min-width:140px;border:0;outline:0;background:transparent;padding:10px 0;font:inherit;font-size:15px;color:var(--ink);border-radius:0}
 #qs-in::placeholder{color:var(--mute)}
 .qs-go{margin-top:18px;display:inline-flex;align-items:center;gap:10px;background:var(--paper);color:var(--ink);border-radius:999px;padding:14px 24px;font-size:14px;font-weight:400;white-space:nowrap;transition:transform .2s,background .2s}
@@ -1180,7 +1181,7 @@ footer nav a:hover{color:var(--ink)}
   /* ---------- busca de serviços na chamada final ---------- */
   const QS=[["Diagnóstico de posicionamento", "Marca"], ["Branding & identidade visual", "Marca"], ["Rebranding estratégico", "Marca"], ["Design gráfico", "Marca"], ["Consultoria estratégica", "Marca"], ["Gestão de redes sociais", "Presença digital"], ["Gestão de anúncios", "Presença digital"], ["Edição de vídeos", "Presença digital"], ["Criação de conteúdo", "Presença digital"], ["Análise de dados", "Presença digital"], ["Sites institucionais", "Tecnologia"], ["Landing pages", "Tecnologia"], ["Sistemas com banco de dados", "Tecnologia"], ["Automações", "Tecnologia"], ["UI/UX design", "Tecnologia"], ["Google Meu Negócio", "Tecnologia"]];
   const qs=document.getElementById("qs"),qIn=document.getElementById("qs-in"),qList=document.getElementById("qs-list"),qChips=document.getElementById("qs-chips"),qGo=document.getElementById("qs-go");
-  const qSel=[];let qAct=0,qShown=[];
+  const qSel=[];let qAct=0,qShown=[],qAll=false;const QMAX=4;
   const norm=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
   function qMsg(){const extra=qIn.value.trim();let items=[...qSel];if(extra&&!items.length)items=[extra];
     if(!items.length)return "Olá! Vim pelo site da LatosMarke e gostaria de um orçamento.";
@@ -1190,11 +1191,13 @@ footer nav a:hover{color:var(--ink)}
     const q=norm(qIn.value.trim());
     qShown=QS.filter(([n,a])=>!q||norm(n).includes(q)||norm(a).includes(q));
     qList.innerHTML=qShown.length?qShown.map(([n,a],i)=>`<li role="option" id="qs-o${i}" aria-selected="${qSel.includes(n)}" class="${i===qAct?"act":""}" data-n="${n}"><span>${n}</span><small>${a}</small></li>`).join(""):'<li class="qs-empty">Nenhum serviço com esse nome. Envie assim mesmo que a gente responde.</li>';
-    qChips.innerHTML="";qSel.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qOpen()});qChips.appendChild(b)});
+    qChips.innerHTML="";const vis=(qAll||qSel.length<=QMAX)?qSel:qSel.slice(0,QMAX);vis.forEach(n=>{const b=document.createElement("button");b.type="button";b.innerHTML=n+" <span>×</span>";b.setAttribute("aria-label","Remover "+n);b.addEventListener("pointerdown",e=>e.stopPropagation());b.addEventListener("click",e=>{e.stopPropagation();qToggle(n);qOpen()});qChips.appendChild(b)});
+    if(qSel.length>QMAX){const m=document.createElement("button");m.type="button";m.className="qs-more";m.textContent=qAll?"Ver menos":"Ver mais "+(qSel.length-QMAX);
+      m.setAttribute("aria-expanded",qAll);m.addEventListener("pointerdown",e=>e.stopPropagation());m.addEventListener("click",e=>{e.stopPropagation();qAll=!qAll;qRender()});qChips.appendChild(m)}
     qIn.placeholder=qSel.length?"Adicionar outro serviço":"Qual serviço você precisa?";
     qGo.href=wa(qMsg());
   }
-  function qToggle(n){const i=qSel.indexOf(n);if(i>-1)qSel.splice(i,1);else qSel.push(n);qIn.value="";qAct=0;qRender();qIn.focus({preventScroll:true})}
+  function qToggle(n){qAll=false;const i=qSel.indexOf(n);if(i>-1)qSel.splice(i,1);else qSel.push(n);qIn.value="";qAct=0;qRender();qIn.focus({preventScroll:true})}
   function qOpen(){qs.classList.add("open");qIn.setAttribute("aria-expanded","true");qRender()}
   function qClose(){qs.classList.remove("open");qIn.setAttribute("aria-expanded","false")}
   qIn.addEventListener("focus",qOpen);
